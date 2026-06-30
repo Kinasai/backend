@@ -113,7 +113,6 @@ class JorbiHandlerService
     }
     protected function handleSendCU(): \Illuminate\Http\JsonResponse
     {
-        sleep(5);
         return (new BuildAnswerService('BL|CU'))->success([], ['AdmTID' => $this->request['TID']]);
     }
     protected function handleDefault(): \Illuminate\Http\JsonResponse
