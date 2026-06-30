@@ -24,15 +24,15 @@ class JorbiHandlerService
     protected function handleLogin(): \Illuminate\Http\JsonResponse
     {
         /**
-         * "Code": "BL|GS",
-         * "TID": packet.TID,
-         * "MemberID": 0,
-         * "Token": Token,
-         * "IP": IP,
-         * "RefreshToken": RefreshToken,
-         * "TokenType": TokenType,
-         * "LoginType": LoginType,
-         * "AliveKey": AliveKey,
+         * 'Code' => 'BL|GS',
+         * 'TID' => '30.06.2026 19:17:341935',
+         * 'MemberID' => 0,
+         * 'Token' => 'B97LzPilCosfEOLDB7DFlPIZzVfYH5LKhwCEhVM646626656',
+         * 'IP' => '192.168.52.1',
+         * 'RefreshToken' => NULL,
+         * 'TokenType' => NULL,
+         * 'LoginType' => 'DEV',
+         * 'AliveKey' => NULL,
          *
          * response
          * MemberID
@@ -45,17 +45,19 @@ class JorbiHandlerService
         info($this->request);
 //        $token = PersonalAccessToken::findToken($this->request['Token']);
 //        if ($token) {
-//            $account = $token->tokenable;
-//        $account_data = [
-//            "MemberID" => 123456789, //USN
-//            "PCB_ID" => "PCB123456789",
-//            "BNEAResponse" => [
-//                "id" => 987654321
-//            ]
+            //$account = $token->tokenable;
+
+            $account_data = [
+            "MemberID" => 1, //USN
+            "PCB_ID" => "PCB123456789",
+            "BNEAResponse" => [
+                "id" => 1
+            ]
+            ];
 //        ];
-//            return (new BuildAnswerService('BL|GS'))->success([], $account_data);
+            return (new BuildAnswerService('BL|GS'))->success([], $account_data);
 //        }
-        return (new BuildAnswerService('BL|GS'))->error('Not found');
+        //return (new BuildAnswerService('BL|GS'))->error('Not found');
     }
     protected function handleLoginSteam(): \Illuminate\Http\JsonResponse
     {
