@@ -49,7 +49,8 @@ class JorbiHandlerService
 
             $account_data = [
             "MemberID" => 1, //USN
-            "PCB_ID" => "PCB123456789"
+            "PCB_ID" => "PCB123456789",
+            'TID' => $this?->request['TID'] ?? null
             ];
             $bnea_response = [
                 "id" => 1,
