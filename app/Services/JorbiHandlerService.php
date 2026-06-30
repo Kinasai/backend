@@ -97,7 +97,7 @@ class JorbiHandlerService
     protected function handleSendCU(): \Illuminate\Http\JsonResponse
     {
         info($this->request);
-        $now = Carbon::now();
+        $now = Carbon::now()->addSeconds(10);
         $date = $now->format('d.m.Y H:i:s') . substr($now->format('v'), 0, 2);
         return (new BuildAnswerService('BL|CU'))->success([], ['AdmTID' => $date]);
     }
