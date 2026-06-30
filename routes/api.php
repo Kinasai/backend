@@ -11,4 +11,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/auth', [AuthController::class, 'auth']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/jorbi/{route}', [JorbiController::class, 'handler']);
+Route::post('/jorbi/{route}', [JorbiController::class, 'handler']);
