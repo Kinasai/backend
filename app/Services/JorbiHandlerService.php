@@ -61,7 +61,7 @@ class JorbiHandlerService
 				  "Country" => "us",
 				  "Language" => "EN",
 				  "LastIp" => '127.0.0.1',
-				  "AuthKey" => $this->request['Token'],
+				  "AuthKey" => "token",
 				  "OneTimeKey" => "ONETIME_KEY_STUB",
 				  "Grade" => 0,
 				  "AccountStatus" => 0,
