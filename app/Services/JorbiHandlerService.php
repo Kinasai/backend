@@ -51,7 +51,23 @@ class JorbiHandlerService
             "MemberID" => 1, //USN
             "PCB_ID" => "PCB123456789",
             "BNEAResponse" => [
-                "id" => 1
+                "id" => 1,
+
+				  "USN" => 1,
+				  "MemberID" => 1,
+				  "AccountName" => "DevAccount",
+				  "Nickname" => "DevUser",
+				  "Email" => "dev@local",
+				  "Country" => "us",
+				  "Language" => "EN",
+				  "LastIp" => '127.0.0.1',
+				  "AuthKey" => $this->request['Token'],
+				  "OneTimeKey" => "ONETIME_KEY_STUB",
+				  "Grade" => 0,
+				  "AccountStatus" => 0,
+				  "IsPcb" => false,
+				  "GMLevel" => 1,
+				  "LastAccessServerId" => 101
             ]
             ];
 //        ];
