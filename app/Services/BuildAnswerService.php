@@ -14,15 +14,20 @@ class BuildAnswerService
 
     public function success(array $bneaResponse = [], array $data = []): \Illuminate\Http\JsonResponse
     {
-        $response = array_merge([
-            'Code'    => $this->code,
-            'ErrCode' => 1000,
-            'ErrMsg'  => 'OK',
-        ], $data);
+        try {
+            $response = array_merge([
+                'Code'    => $this->code,
+                'ErrCode' => 1000,
+                'ErrMsg'  => 'OK',
+            ], $data);
 
-        if ($bneaResponse) {
-            $response['BNEAResponse'] = $bneaResponse;
+            if ($bneaResponse) {
+                $response['BNEAResponse'] = $bneaResponse;
+            }
+        } catch (\Exception $e){
+            info($e);
         }
+
 
         return response()->json($response);
     }
