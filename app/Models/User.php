@@ -19,8 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'login',
         'email',
         'password',
+        'usn',
+        'balance',
     ];
 
     /**
@@ -44,14 +47,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function parseTasks()
-    {
-        return $this->hasMany(ParseTask::class);
-    }
-    public function parseTasksCompleted()
-    {
-        return $this->hasMany(ParseTask::class)->where('status', 'completed');
     }
 }

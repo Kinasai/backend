@@ -16,10 +16,6 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/password', [PasswordController::class, 'edit'])->name('password.edit');
     Route::put('settings/password', [PasswordController::class, 'update'])->name('password.update');
 
-    Route::get('settings/yandex', [YandexController::class, 'edit'])->name('yandex.edit');
-    Route::put('settings/yandex', [YandexController::class, 'update'])->name('yandex.update');
-    Route::delete('settings/yandex/{id}', [YandexController::class, 'destroy'])->name('yandex.destroy');
-
     Route::get('settings/appearance', function () {
         return Inertia::render('settings/Appearance');
     })->name('appearance');
