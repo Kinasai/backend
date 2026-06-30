@@ -16,6 +16,7 @@ class JorbiHandlerService
     {
         return match($route) {
             'game-start' => $this->handleLogin(),
+            'send-cu' => $this->handleSendCU(),
             default => $this->handleDefault()
         };
     }
@@ -91,6 +92,11 @@ class JorbiHandlerService
 //            return (new BuildAnswerService('BL|GS'))->success([], $account_data);
 //        }
         return (new BuildAnswerService('BL|GS.STEAM'))->error('Not found');
+    }
+    protected function handleSendCU(): \Illuminate\Http\JsonResponse
+    {
+        info($this->request);
+        return (new BuildAnswerService($this->request['Code']))->success();
     }
     protected function handleDefault(): \Illuminate\Http\JsonResponse
     {
