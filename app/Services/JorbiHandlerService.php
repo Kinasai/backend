@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class JorbiHandlerService
@@ -96,7 +97,9 @@ class JorbiHandlerService
     protected function handleSendCU(): \Illuminate\Http\JsonResponse
     {
         info($this->request);
-        return (new BuildAnswerService('BL|CU'))->success([], ['AdmTID' => $this->request['AdmTID']]);
+        $now = Carbon::now();
+        $date = $now->format('d.m.Y H:i:s') . substr($now->format('v'), 0, 2);
+        return (new BuildAnswerService('BL|CU'))->success([], ['AdmTID' => $date]);
     }
     protected function handleDefault(): \Illuminate\Http\JsonResponse
     {
