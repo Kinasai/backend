@@ -49,29 +49,28 @@ class JorbiHandlerService
 
             $account_data = [
             "MemberID" => 1, //USN
-            "PCB_ID" => "PCB123456789",
-            "BNEAResponse" => [
+            "PCB_ID" => "PCB123456789"
+            ];
+            $bnea_response = [
                 "id" => 1,
-
-				  "USN" => 1,
-				  "MemberID" => 1,
-				  "AccountName" => "DevAccount",
-				  "Nickname" => "DevUser",
-				  "Email" => "dev@local",
-				  "Country" => "us",
-				  "Language" => "EN",
-				  "LastIp" => '127.0.0.1',
-				  "AuthKey" => "token",
-				  "OneTimeKey" => "ONETIME_KEY_STUB",
-				  "Grade" => 0,
-				  "AccountStatus" => 0,
-				  "IsPcb" => false,
-				  "GMLevel" => 1,
-				  "LastAccessServerId" => 101
-            ]
+                "USN" => 1,
+                "MemberID" => 1,
+                "AccountName" => "DevAccount",
+                "Nickname" => "DevUser",
+                "Email" => "dev@local",
+                "Country" => "us",
+                "Language" => "EN",
+                "LastIp" => '127.0.0.1',
+                "AuthKey" => "token",
+                "OneTimeKey" => "ONETIME_KEY_STUB",
+                "Grade" => 0,
+                "AccountStatus" => 0,
+                "IsPcb" => false,
+                "GMLevel" => 1,
+                "LastAccessServerId" => 101
             ];
 //        ];
-            return (new BuildAnswerService('BL|GS'))->success([], $account_data);
+            return (new BuildAnswerService('BL|GS'))->success($bnea_response, $account_data);
 //        }
         //return (new BuildAnswerService('BL|GS'))->error('Not found');
     }
