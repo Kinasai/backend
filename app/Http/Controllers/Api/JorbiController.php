@@ -19,10 +19,13 @@ class JorbiController extends Controller
 
     public function handler(Request $request, $route): \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
     {
-        if($request->has('AdmTID')){
-            return response()->noContent();
-        }else{
+        //if($request->has('AdmTID')){
+        //    return response()->noContent();
+        //}else
+        if($request->has('TID')){
             return $this->jorbi_handler->route($route);
+        }else{
+            return response()->noContent();
         }
     }
 }
