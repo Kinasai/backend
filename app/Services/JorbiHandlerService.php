@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Http\Resources\CategoryCollection;
+use App\Models\Category;
 use App\Models\ServerStatus;
 
 class JorbiHandlerService
@@ -19,6 +21,7 @@ class JorbiHandlerService
             'game-start-steam' => $this->handleLoginSteam(),
             'product-vip-level' => $this->handleProductVipLevel(),
             'sso-token' => $this->handleSsoToken(),
+            'categories' => $this->handleCategories(),
             'send-cu' => $this->handleSendCU(),
             'send-op' => $this->handleSendOP(),
             'account' => $this->handleAccount(),
@@ -129,24 +132,21 @@ class JorbiHandlerService
     }
     protected function handleSsoToken(): \Illuminate\Http\JsonResponse
     {
-        /**
-         * {
-         * Code: 'BL|SSO.TOKEN',
-         * TID: '02.07.2026 15:05:33740',
-         * MemberID: 1
-         * }
-         *
-         * response
-         * ErrCode
-         * ErrMsg
-         * BNEAResponse
-         */
         $bnea_response = [
             "data" => "eyJhbGciOiJIUzUxMiJ9.eyJnX3p0IjoiZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKa2FYTjBjbWxpZFhSdmNsVnpaWEpKWkNJNklqYzJOVFl4TVRrNE1ERTROREV6TmpjNUlpd2liR0Z1WjNWaFoyVkRaQ0k2Ym5Wc2JDd2ljMlZ6YzJsdmJrdGxlU0k2SWpRME1EQTROVEk2UjBGTlJUb3hJaXdpYVhOU1pXcHZhVzVsWkNJNlptRnNjMlVzSW0xbVlVTmtJam9pVGs5T1JTSXNJbTVsZDNOc1pYUjBaWEpCWTJObGNIUlpiaUk2Ym5Wc2JDd2lhWEFpT2lJNE15NHlNakF1TVRjeElpd2ljSEp2ZG1sa1pYSkRaQ0k2SWtoRlRFRWlMQ0pqYjNWdWRISjVRMlFpT2lKbllpSXNJbk4wWVhSMWMwTmtJam9pVGs5U1RVRk1JaXdpY0d4aGRHWnZjbTB5Ym1SVFpXTjFjbWwwZVVObGNuUlpiaUk2SWs0aUxDSmthWE4wY21saWRYUnZja3h2WjJsdUlqb2lVMVJGUVUwaUxDSndZWE56ZDJSRGFHRnVaMlZFZENJNklpSXNJbVJwYzNSeWFXSjFkRzl5VW1WbmFYTjBaWElpT2lKVFZFVkJUU0lzSW5WemJpSTZJalEwTURBNE5USWlMQ0pzWVhOMFRHOW5hVzVFZENJNklpSXNJbXh2WjJsdVNYQWlPaUl5TGpJMkxqVTBMakV6TlNJc0ltNXBZMnR1WVcxbElqcHVkV3hzTENKeVpXZHBjM1JsY2tSMElqb2lJaXdpYzJWemMybHZibFI1Y0dVaU9pSkhRVTFGSWl3aWEzSkRaWEowV1c0aU9pSlpJaXdpWlcxaGFXd2lPbTUxYkd3c0ltaGhjMmdpT2lJeE5EazVZV1JsWlRnME1UYzBPRFZqT1dJNE1USTJaamcxWVdKbVlUazVaU0lzSW01cFkydHVZVzFsVFc5a2FXWjVRMjUwSWpwdWRXeHNmUS5Gd3dqa1ZsWUY0UEFrMFYzNmF1a05LRVZSMWgzWk12U1pkRkJBRElHVUstWGNGSTF1QlJSUVpoOWc0TlJLNDUxOU5UZldNYV9JMzRwLWg3NmlLSndxZyIsImV4cCI6MTc4MjI5NDU5NH0.jG1PFo_WuIGVK9m5vsvV2IC3x3jBK88CB7N_xkXcvIwdMLx6cHdAYKFWDmQCiw2DUBfReai3mmvU0R1QVwnLDQ",
             'code' => 0,
             'message' => 'OK',
         ];
         return (new BuildAnswerService('BL|SSO.TOKEN'))->success($bnea_response, ["TID" => $this->request['TID']]);
+    }
+    protected function handleCategories(): \Illuminate\Http\JsonResponse
+    {
+        $bnea_response = [
+            "data" => CategoryCollection::make(
+                Category::query()->orderBy('ordering_id')->paginate(20)
+            )
+        ];
+        return (new BuildAnswerService('BL|CATEGORIES'))->success($bnea_response, ["TID" => $this->request['TID']]);
     }
     protected function handleSendCU(): \Illuminate\Http\JsonResponse
     {
