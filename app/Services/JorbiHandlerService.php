@@ -420,7 +420,11 @@ class JorbiHandlerService
             'product_code' => 'BLESS',
             'product_name' => 'Bless Unleashed'
         ];
-        return (new BuildAnswerService('BL|ITEMS'))->success([ 'data' => $data]);
+        return (new BuildAnswerService('BL|ITEMS'))->success([
+            "code" => 0, // КРИТИЧНО: Должен быть 0, иначе клиент выдаст ошибку CashShop Error
+            "message" => "OK",
+            'data' => $data
+        ]);
     }
     protected function handleSsoToken(): \Illuminate\Http\JsonResponse
     {
