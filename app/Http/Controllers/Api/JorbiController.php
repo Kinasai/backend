@@ -17,8 +17,12 @@ class JorbiController extends Controller
         $this->jorbi_handler = new JorbiHandlerService($request->all());
     }
 
-    public function handler(Request $request, $route): \Illuminate\Http\JsonResponse
+    public function handler(Request $request, $route): \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
     {
-        return $this->jorbi_handler->route($route);
+        if($request->has('AdmTID')){
+            return response()->noContent();
+        }else{
+            return $this->jorbi_handler->route($route);
+        }
     }
 }
