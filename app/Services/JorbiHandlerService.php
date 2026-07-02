@@ -231,7 +231,7 @@ class JorbiHandlerService
          */
         $response = [
             "data" => [
-                [
+
                     'page_total' => 1,
                     'bundles' => [
                         [
@@ -477,7 +477,7 @@ class JorbiHandlerService
                     'product_code' => 'BLESS',
                     'product_name' => 'Bless Unleashed'
                 ]
-            ]
+
         ];
         return (new BuildAnswerService('BL|ITEMS'))->success($response, ["TID" => $this->request['TID']]);
     }
