@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -60,6 +61,11 @@ class DatabaseSeeder extends Seeder
         foreach ($array as $item) {
             Category::query()->create($item);
         }
+
+        Tag::query()->create([
+            'name' => 'WelcomeScreen',
+            'external_id' => 1,
+        ]);
 
 //        User::factory()->create([
 //            'name' => 'Test User',
