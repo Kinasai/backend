@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\TagCollection;
 use App\Models\Category;
 use App\Models\ServerStatus;
+use App\Models\Tag;
 
 class JorbiHandlerService
 {
@@ -22,9 +24,12 @@ class JorbiHandlerService
             'product-vip-level' => $this->handleProductVipLevel(),
             'sso-token' => $this->handleSsoToken(),
             'categories' => $this->handleCategories(),
+            'tags' => $this->handleTags(),
             'send-cu' => $this->handleSendCU(),
             'send-op' => $this->handleSendOP(),
+            'cash' => $this->handleCash(),
             'account' => $this->handleAccount(),
+            'account-mileage' => $this->handleAccountMileage(),
             default => $this->handleDefault()
         };
     }
@@ -130,6 +135,36 @@ class JorbiHandlerService
         ];
         return (new BuildAnswerService('BL|ACCOUNT'))->success($bnea_response, ["TID" => $this->request['TID']]);
     }
+    protected function handleAccountMileage(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * {
+         * Code: 'BL|ACCOUNT.MILEAGE',
+         * TID: '02.07.2026 15:55:501346',
+         * MemberID: 1
+         * }
+         *
+         * response
+         * ErrCode
+         * ErrMsg
+         * BNEAResponse
+         */
+        $bnea_response = [
+            'data' => [
+                'total_mileage' => 5000
+            ]
+        ];
+        return (new BuildAnswerService('BL|ACCOUNT.MILEAGE'))->success($bnea_response, ["TID" => $this->request['TID']]);
+    }
+    protected function handleCash(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * Code: 'BL|CASH',
+         * TID: '02.07.2026 15:55:501346',
+         * MemberID: 1
+         */
+        return (new BuildAnswerService('BL|CASH'))->success([], ["Balance" => 123456, "TID" => $this->request['TID']]);
+    }
     protected function handleSsoToken(): \Illuminate\Http\JsonResponse
     {
         $bnea_response = [
@@ -144,6 +179,15 @@ class JorbiHandlerService
         $bnea_response = [
             "data" => CategoryCollection::make(
                 Category::query()->orderBy('ordering_id')->paginate(20)
+            )
+        ];
+        return (new BuildAnswerService('BL|CATEGORIES'))->success($bnea_response, ["TID" => $this->request['TID']]);
+    }
+    protected function handleTags(): \Illuminate\Http\JsonResponse
+    {
+        $bnea_response = [
+            "data" => TagCollection::make(
+                Tag::query()->orderBy('created_at')->paginate(20)
             )
         ];
         return (new BuildAnswerService('BL|CATEGORIES'))->success($bnea_response, ["TID" => $this->request['TID']]);
