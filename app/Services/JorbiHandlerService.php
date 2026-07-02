@@ -230,11 +230,7 @@ class JorbiHandlerService
          * MemberID: 1
          */
         $response = [
-            "code" => 0, // КРИТИЧНО: Должен быть 0, иначе клиент выдаст ошибку CashShop Error
-            "message" => "OK",
             "data" => [
-                "code" => 0, // КРИТИЧНО: Должен быть 0, иначе клиент выдаст ошибку CashShop Error
-                "message" => "OK",
                 "page" => 1,
                 "page_total" => 1,
                 "bundle_count" => 1,
