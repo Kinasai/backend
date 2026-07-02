@@ -112,7 +112,7 @@ class JorbiHandlerService
     }
     protected function handleSendOP(): \Illuminate\Http\JsonResponse
     {
-        return (new BuildAnswerService('BL|OP.ACK'))->success([], ["TID" => $this->request['TID']]);
+        return (new BuildAnswerService('BL|OP.ACK'))->success([], ["TID" => $this?->request['TID'] ?? '']);
     }
     protected function handleDefault(): \Illuminate\Http\JsonResponse
     {
