@@ -165,7 +165,7 @@ class JorbiHandlerService
          * TID: '02.07.2026 15:55:501346',
          * MemberID: 1
          */
-        return (new BuildAnswerService('BL|CASH'))->success([], ["Balance" => 123456, "TID" => $this->request['TID']]);
+        return (new BuildAnswerService('BL|CASH'))->success([], ["Balance" => 123456, "BNEAResponse" => [], "TID" => $this->request['TID']]);
     }
     protected function handleItems(): \Illuminate\Http\JsonResponse
     {
