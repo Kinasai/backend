@@ -211,7 +211,9 @@ class JorbiHandlerService
         /**
          * { Code: 'BL|VIP', TID: '02.07.2026 17:07:3388', MemberID: 1 }
          */
-        return (new BuildAnswerService('BL|VIP'))->success([], ["BNEAResponse" => [], "TID" => $this->request['TID']]);
+        return (new BuildAnswerService('BL|VIP'))->success([ 'data' => [
+            'Vip_Level' => 0, 'Vip_Point'  => 0,'NextLevel_MaxPoint'  => 500
+        ]], [ "TID" => $this->request['TID']]);
     }
     protected function handleWho(): \Illuminate\Http\JsonResponse
     {
@@ -231,6 +233,8 @@ class JorbiHandlerService
             "code" => 0, // КРИТИЧНО: Должен быть 0, иначе клиент выдаст ошибку CashShop Error
             "message" => "OK",
             "data" => [
+                "code" => 0, // КРИТИЧНО: Должен быть 0, иначе клиент выдаст ошибку CashShop Error
+                "message" => "OK",
                 "page" => 1,
                 "page_total" => 1,
                 "bundle_count" => 1,
