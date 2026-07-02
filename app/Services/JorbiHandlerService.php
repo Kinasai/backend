@@ -31,7 +31,8 @@ class JorbiHandlerService
 
             $account_data = [
             "MemberID" => 1, //USN
-            "PCB_ID" => ""  //PC club
+            "PCB_ID" => "",  //PC club
+            "TID" => $this->request['TID']
             ];
             $bnea_response = [
                 "id" => 1,
@@ -70,6 +71,7 @@ class JorbiHandlerService
                 "MemberID" => 1, //USN
                 "Token" => "dummy_token_123",
                 "PCB_ID" => "", //PC club
+                "TID" => $this->request['TID']
             ];
             $bnea_response = [
                 "hela_steam_new_member_url" => "",
@@ -88,7 +90,7 @@ class JorbiHandlerService
          * ErrMsg
          * BNEAResponse
          */
-        return (new BuildAnswerService('BL|PRODUCT.VIP.LEVEL'))->success([], ['BNEAResponse' => []]);
+        return (new BuildAnswerService('BL|PRODUCT.VIP.LEVEL'))->success([], ["TID" => $this->request['TID'], 'BNEAResponse' => []]);
     }
     protected function handleSendCU(): \Illuminate\Http\JsonResponse
     {
@@ -106,11 +108,11 @@ class JorbiHandlerService
             );
         }
 
-        return (new BuildAnswerService('BL|CU.ACK'))->success(['id' => 0]);
+        return (new BuildAnswerService('BL|CU.ACK'))->success(['id' => 0], ["TID" => $this->request['TID']]);
     }
     protected function handleSendOP(): \Illuminate\Http\JsonResponse
     {
-        return (new BuildAnswerService('BL|OP'))->success();
+        return (new BuildAnswerService('BL|OP'))->success([], ["TID" => $this->request['TID']]);
     }
     protected function handleDefault(): \Illuminate\Http\JsonResponse
     {
