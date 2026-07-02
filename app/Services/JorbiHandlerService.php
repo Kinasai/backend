@@ -232,7 +232,7 @@ class JorbiHandlerService
         $response = [
             "bundle_count" => 1
         ];
-        return (new BuildAnswerService('BL|ITEMS'))->success($response);
+        return (new BuildAnswerService('BL|ITEMS'))->success($response, ["TID" => $this->request['TID']]);
     }
     protected function handleSsoToken(): \Illuminate\Http\JsonResponse
     {
