@@ -31,7 +31,12 @@ class JorbiHandlerService
             'cash' => $this->handleCash(),
             'items' => $this->handleItems(),
             'account' => $this->handleAccount(),
+            'account-premium' => $this->handleAccountPremium(),
             'account-mileage' => $this->handleAccountMileage(),
+            'account-inventory-injected' => $this->handleAccountInventoryInjected(),
+            'account-xbox-inventory' => $this->handleAccountXboxInventory(),
+            'who' => $this->handleWho(),
+            'vip' => $this->handleVip(),
             default => $this->handleDefault()
         };
     }
@@ -166,6 +171,54 @@ class JorbiHandlerService
          * MemberID: 1
          */
         return (new BuildAnswerService('BL|CASH'))->success([], ["Balance" => 123456, "BNEAResponse" => [], "TID" => $this->request['TID']]);
+    }
+    protected function handleAccountInventoryInjected(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * {
+         * Code: 'BL|ACCOUNT.INVENTORY.INJECTED',
+         * TID: '02.07.2026 17:07:3792',
+         * MemberID: 1
+         * }
+         */
+        return (new BuildAnswerService('BL|ACCOUNT.INVENTORY.INJECTED'))->success([], ["BNEAResponse" => [], "TID" => $this->request['TID']]);
+    }
+    protected function handleAccountXboxInventory(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * {
+         * Code: 'BL|ACCOUNT.XBOXINVENTORY',
+         * TID: '02.07.2026 17:07:3791',
+         * MemberID: 1,
+         * Market: ''
+         * }
+         */
+        return (new BuildAnswerService('BL|ACCOUNT.XBOXINVENTORY'))->success([], ["BNEAResponse" => [], "TID" => $this->request['TID']]);
+    }
+    protected function handleAccountPremium(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * {
+         * Code: 'BL|ACCOUNT.PREMIUM',
+         * TID: '02.07.2026 17:07:0448',
+         * MemberID: 1
+         * }
+         */
+        return (new BuildAnswerService('BL|ACCOUNT.PREMIUM'))->success([], ["BNEAResponse" => [], "TID" => $this->request['TID']]);
+    }
+    protected function handleVip(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * { Code: 'BL|VIP', TID: '02.07.2026 17:07:3388', MemberID: 1 }
+         */
+        return (new BuildAnswerService('BL|VIP'))->success([], ["BNEAResponse" => [], "TID" => $this->request['TID']]);
+    }
+    protected function handleWho(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * { Code: 'BL|VIP', TID: '02.07.2026 17:07:3388', MemberID: 1 }
+         */
+        return (new BuildAnswerService('BL|WHO'))->success([], ["BNEAResponse" => [], "TID" => $this->request['TID']]);
     }
     protected function handleItems(): \Illuminate\Http\JsonResponse
     {
