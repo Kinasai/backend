@@ -231,14 +231,7 @@ class JorbiHandlerService
          */
         $response = [
             "data" => [
-                "page" => 1,
-                "page_total" => 1,
-                "bundle_count" => 1,
-                "product_code" => "BLESS",
-                "product_name" => "Bless Unleashed",
-                "bundles" => [
-                    []
-                ]
+                "bundle_count" => 1
             ]
         ];
         return (new BuildAnswerService('BL|ITEMS'))->success($response);
