@@ -241,62 +241,7 @@ class JorbiHandlerService
                 "product_code" => "BLESS",
                 "product_name" => "Bless Unleashed",
                 "bundles" => [
-                    [
-                        "item_process_type" => 2,
-                        "item_options" => new stdClass(), // Пустой объект {}
-//                        'item_options' => [
-//                            'purchasable_level' => 1,      // Минимальный уровень для покупки
-//                            'purchase_limit_level' => 45,  // Максимальный уровень
-//                            'item_margin' => 0
-//                        ],
-                        "category_name" => "Bundles",
-                        "item_type_id" => 2,
-                        "price" => 7000,
-                        "price_original" => 7000,
-                        "ordering_id" => 1,
-                        // ФЛАГ: Лимиты на покупку
-                        // 'N' - товар можно покупать без ограничений (или по стандартным лимитам).
-                        // 'Y' - товар имеет сложную логику лимитов. В этом случае игра
-                        //       начинает проверять следующие ТРИ поля (acct_type, period, policy).
-                        "limit_flag" => "Y",
-                        "acct_type_code" => 2,
-                        "limit_period_type_code" => 3, //если limit_flag = 'Y' 1 = Дневной лимит, 2 = Недельный, 3 = Месячный и т.д.
-                        "limit_policy_val" => "00", // если limit_flag = 'Y' Значение лимита (например: "5" штук в день)
-                        "category_tags" => [],
-                        "created_at" => "2026-02-10T10:51:51+00:00",
-                        "purchase_limit" => 3,
-                        "item_dc_rate" => 0,  // Процент скидки (Discount Rate)
-                        "user_purchase_count" => 0,
-                        "desc_short" => " ",
-                        "category_id" => "AACAAB",
-                        "policy_end_date" => "",
-                        "updated_at" => "",
-                        "policy_start_date" => "",
-                        // ФЛАГ: Таймер продаж (count_down_flag)
-                        // 'N' - товар продается всегда (таймера нет).
-                        // 'Y' - включает таймер распродажи. В этом случае ОБЯЗАТЕЛЬНО
-                        //       нужно заполнить поля created_at, sales_start и sales_end!
-                        "count_down_flag" => "N",
-                        "game_item_id" => "96159",
-                        "quantity" => 1,
-                        "sales_end" => "2999-12-31T23:59:59+00:00",
-                        "item_options_error_msg" => "",
-                        "goods_id" => "1636",
-                        "tags" => [],
-                        "desc_long" => "Effect on Use: Grants an Advanced Constellation Activation Ticket.",
-                        "parent_id" => "AAC",
-                        "sales_start" => "2026-02-10T00:00:00+00:00",
-                        "name" => "Advanced Constellation Activation Ticket Special Pack",
-                        "random_category" => "",
-                        "region" => "ALL",
-                        "thumbnails" => [
-                            [
-                                "thumbnail_id" => "3602",
-                                "thumbnail_category" => "1",
-                                "thumbnail_name" => "https://payfile.vlfhela.com/cashshop_constellation_pack.png"
-                            ]
-                        ]
-                    ]
+                    []
                 ]
             ]
         ];
