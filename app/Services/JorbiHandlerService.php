@@ -14,34 +14,22 @@ class JorbiHandlerService
 
     public function route($route): \Illuminate\Http\JsonResponse
     {
-        return match($route) {
+        $response = match($route) {
             'game-start' => $this->handleLogin(),
             'game-start-steam' => $this->handleLoginSteam(),
+            'product-vip-level' => $this->handleProductVipLevel(),
             'send-cu' => $this->handleSendCU(),
+            'send-op' => $this->handleSendOP(),
             default => $this->handleDefault()
         };
+        if (is_array($response) && $this->request->has('TID')) {
+            $response['TID'] = $this->request->input('TID');
+        }
+
+        return $response;
     }
     protected function handleLogin(): \Illuminate\Http\JsonResponse
     {
-        /**
-         * 'Code' => 'BL|GS',
-         * 'TID' => '30.06.2026 19:17:341935',
-         * 'MemberID' => 0,
-         * 'Token' => 'B97LzPilCosfEOLDB7DFlPIZzVfYH5LKhwCEhVM646626656',
-         * 'IP' => '192.168.52.1',
-         * 'RefreshToken' => NULL,
-         * 'TokenType' => NULL,
-         * 'LoginType' => 'DEV',
-         * 'AliveKey' => NULL,
-         *
-         * response
-         * MemberID
-         * ErrCode
-         * ErrMsg
-         * ?PCB_ID
-         *
-         * BNEAResponse.id
-         */
 //        $token = PersonalAccessToken::findToken($this->request['Token']);
 //        if ($token) {
             //$account = $token->tokenable;
@@ -79,6 +67,7 @@ class JorbiHandlerService
          * BNEAResponse.hela_steam_new_member_url
          *
          */
+
 //        $token = PersonalAccessToken::findToken($this->request['Token']);
 //        if ($token) {
 //            $account = $token->tokenable;
@@ -93,6 +82,18 @@ class JorbiHandlerService
             return (new BuildAnswerService('BL|GS.STEAM'))->success($bnea_response, $account_data);
 //        }
 //        return (new BuildAnswerService('BL|GS.STEAM'))->error('Not found');
+    }protected function handleProductVipLevel(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * Code: 'BL|PRODUCT.VIP.LEVEL'
+         * TID: '02.07.2026 11:45:205'
+         *
+         * response
+         * ErrCode
+         * ErrMsg
+         * BNEAResponse
+         */
+        return (new BuildAnswerService('BL|PRODUCT.VIP.LEVEL'))->success();
     }
     protected function handleSendCU(): \Illuminate\Http\JsonResponse
     {
@@ -111,6 +112,10 @@ class JorbiHandlerService
         }
 
         return (new BuildAnswerService('BL|CU.ACK'))->success(['id' => 0]);
+    }
+    protected function handleSendOP(): \Illuminate\Http\JsonResponse
+    {
+        return (new BuildAnswerService('BL|OP'))->success();
     }
     protected function handleDefault(): \Illuminate\Http\JsonResponse
     {
