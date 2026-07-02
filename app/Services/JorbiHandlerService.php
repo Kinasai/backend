@@ -230,9 +230,7 @@ class JorbiHandlerService
          * MemberID: 1
          */
         $response = [
-            "data" => [
-                "bundle_count" => 1
-            ]
+            "bundle_count" => 1
         ];
         return (new BuildAnswerService('BL|ITEMS'))->success($response);
     }
