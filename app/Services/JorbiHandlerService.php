@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\ServerStatus;
+
 class JorbiHandlerService
 {
     protected $request;
@@ -94,6 +96,20 @@ class JorbiHandlerService
     }
     protected function handleSendCU(): \Illuminate\Http\JsonResponse
     {
+        if (isset($this->request['CHID'])) {
+            ServerStatus::query()->updateOrCreate(
+                ['server_id' => $this->request['CHID']],
+                [
+                    'online_users' => $this->request['CU'] ?? 0,
+                    'wait_users'   => $this->request['WAITCU'] ?? 0,
+                    'lobby_users'  => $this->request['LOBBYCU'] ?? 0,
+                    'status'       => $this->request['Status'] ?? 0,
+                    'congestion'   => $this->request['Congestion'] ?? 0,
+                    'channel_data' => $this->request['ChannelCU'] ?? null,
+                ]
+            );
+        }
+
         return (new BuildAnswerService('BL|CU.ACK'))->success(['id' => 0]);
     }
     protected function handleDefault(): \Illuminate\Http\JsonResponse
