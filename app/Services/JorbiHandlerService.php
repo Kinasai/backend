@@ -227,100 +227,76 @@ class JorbiHandlerService
          * TID: '02.07.2026 15:55:501346',
          * MemberID: 1
          */
-        $bnea_response = [
-            'page' => 1,
-            'page_total' => 1,
-            'bundle_count' => 1,
-            'bundles' => [
-                [
-                    'goods_id' => 80942001,
-                    'name' => 'Test Bundle',
-                    'desc_short' => 'Short Description',
-                    'desc_long' => 'Long Description',
-                    'price' => 100,
-
-                    // Если price_original не указать или он равен 0,
-                    // клиент автоматически приравняет его к price.
-                    'price_original' => 150,
-
-                    'region' => 'GLOBAL',
-                    'purchase_limit' => 5,
-                    'user_purchase_count' => 0,
-
-                    // ФЛАГ: Таймер продаж
-                    // 'N' - товар продается всегда (таймера нет).
-                    // 'Y' - включает таймер распродажи. В этом случае ОБЯЗАТЕЛЬНО
-                    //       нужно заполнить поля created_at, sales_start и sales_end!
-                    'count_down_flag' => 'N',
-                    'created_at' => '2023-01-01 00:00:00',
-                    'sales_start' => '2023-01-01 00:00:00',
-                    'sales_end' => '2025-01-01 00:00:00',
-
-                    'thumbnails' => [
-                        [
-                            'thumbnail_category' => 1,
-                            'thumbnail_name' => 'https://shapka-youtube.ru/wp-content/uploads/2019/09/favicon-2.png'
-                        ]
-                    ],
-                    'tags' => [
-                        [
-                            'display_tag' => 'HOT',
-                            'tag_id' => 'tag_01'
-                        ]
-                    ],
-
-                    // ФЛАГ: Лимиты на покупку
-                    // 'N' - товар можно покупать без ограничений (или по стандартным лимитам).
-                    // 'Y' - товар имеет сложную логику лимитов. В этом случае игра
-                    //       начинает проверять следующие ТРИ поля (acct_type, period, policy).
-                    'limit_flag' => 'N',
-
-                    // Следующие 3 поля имеют смысл только если limit_flag = 'Y'
-                    'acct_type_code' => 0,
-                    'limit_period_type_code' => 0, // 1 = Дневной лимит, 2 = Недельный, 3 = Месячный и т.д.
-                    'limit_policy_val' => '0',     // Значение лимита (например: "5" штук в день)
-
-                    'item_options' => [
-                        'purchasable_level' => 1,      // Минимальный уровень для покупки
-                        'purchase_limit_level' => 45,  // Максимальный уровень
-                        'item_margin' => 0
-                    ],
-                    'item_dc_rate' => 0, // Процент скидки (Discount Rate)
-
-                    'items' => [
-                        [
-                            'goods_id' => 80942001,
-                            'game_item_id' => 80942001, // ID предмета в базе данных клиента
-                            'name' => 'Test Item',
-                            'desc_short' => 'Item Short Desc',
-                            'desc_long' => 'Item Long Desc',
-                            'price' => 100,
-                            'price_original' => 150,
-                            'region' => 'GLOBAL',
-                            'purchase_limit' => 5,
-                            'user_purchase_count' => 0,
-                            'thumbnails' => [
-                                [
-                                    'thumbnail_category' => 1,
-                                    'thumbnail_name' => 'ui_item_icon'
-                                ]
-                            ],
-                            'tags' => [
-                                [
-                                    'display_tag' => 'SALE',
-                                    'tag_id' => 'tag_sale'
-                                ]
+        $response = [
+            "code" => 0, // КРИТИЧНО: Должен быть 0, иначе клиент выдаст ошибку CashShop Error
+            "message" => "OK",
+            "data" => [
+                "page" => 1,
+                "page_total" => 1,
+                "bundle_count" => 1,
+                "product_code" => "BLESS",
+                "product_name" => "Bless Unleashed",
+                "bundles" => [
+                    [
+                        "item_process_type" => 2,
+                        "item_options" => new stdClass(), // Пустой объект {}
+//                        'item_options' => [
+//                            'purchasable_level' => 1,      // Минимальный уровень для покупки
+//                            'purchase_limit_level' => 45,  // Максимальный уровень
+//                            'item_margin' => 0
+//                        ],
+                        "category_name" => "Bundles",
+                        "item_type_id" => 2,
+                        "price" => 7000,
+                        "price_original" => 7000,
+                        "ordering_id" => 1,
+                        // ФЛАГ: Лимиты на покупку
+                        // 'N' - товар можно покупать без ограничений (или по стандартным лимитам).
+                        // 'Y' - товар имеет сложную логику лимитов. В этом случае игра
+                        //       начинает проверять следующие ТРИ поля (acct_type, period, policy).
+                        "limit_flag" => "Y",
+                        "acct_type_code" => 2,
+                        "limit_period_type_code" => 3, //если limit_flag = 'Y' 1 = Дневной лимит, 2 = Недельный, 3 = Месячный и т.д.
+                        "limit_policy_val" => "00", // если limit_flag = 'Y' Значение лимита (например: "5" штук в день)
+                        "category_tags" => [],
+                        "created_at" => "2026-02-10T10:51:51+00:00",
+                        "purchase_limit" => 3,
+                        "item_dc_rate" => 0,  // Процент скидки (Discount Rate)
+                        "user_purchase_count" => 0,
+                        "desc_short" => " ",
+                        "category_id" => "AACAAB",
+                        "policy_end_date" => "",
+                        "updated_at" => "",
+                        "policy_start_date" => "",
+                        // ФЛАГ: Таймер продаж (count_down_flag)
+                        // 'N' - товар продается всегда (таймера нет).
+                        // 'Y' - включает таймер распродажи. В этом случае ОБЯЗАТЕЛЬНО
+                        //       нужно заполнить поля created_at, sales_start и sales_end!
+                        "count_down_flag" => "N",
+                        "game_item_id" => "96159",
+                        "quantity" => 1,
+                        "sales_end" => "2999-12-31T23:59:59+00:00",
+                        "item_options_error_msg" => "",
+                        "goods_id" => "1636",
+                        "tags" => [],
+                        "desc_long" => "Effect on Use: Grants an Advanced Constellation Activation Ticket.",
+                        "parent_id" => "AAC",
+                        "sales_start" => "2026-02-10T00:00:00+00:00",
+                        "name" => "Advanced Constellation Activation Ticket Special Pack",
+                        "random_category" => "",
+                        "region" => "ALL",
+                        "thumbnails" => [
+                            [
+                                "thumbnail_id" => "3602",
+                                "thumbnail_category" => "1",
+                                "thumbnail_name" => "https://payfile.vlfhela.com/cashshop_constellation_pack.png"
                             ]
                         ]
                     ]
                 ]
             ]
         ];
-        return (new BuildAnswerService('BL|ITEMS'))->success([
-            "code" => 0, // КРИТИЧНО: Должен быть 0, иначе клиент выдаст ошибку CashShop Error
-            "message" => "OK",
-            'data' => $bnea_response
-        ]);
+        return (new BuildAnswerService('BL|ITEMS'))->success($response);
     }
     protected function handleSsoToken(): \Illuminate\Http\JsonResponse
     {
