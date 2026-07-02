@@ -34,6 +34,7 @@ class JorbiHandlerService
             'account-premium' => $this->handleAccountPremium(),
             'account-mileage' => $this->handleAccountMileage(),
             'account-inventory-injected' => $this->handleAccountInventoryInjected(),
+            'account-inventory' => $this->handleAccountInventory(),
             'account-xbox-inventory' => $this->handleAccountXboxInventory(),
             'who' => $this->handleWho(),
             'buy' => $this->handleBuy(),
@@ -183,6 +184,17 @@ class JorbiHandlerService
          * }
          */
         return (new BuildAnswerService('BL|ACCOUNT.INVENTORY.INJECTED'))->success([], ["BNEAResponse" => [], "TID" => $this->request['TID']]);
+    }
+    protected function handleAccountInventory(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * {
+         * Code: 'BL|ACCOUNT.INVENTORY',
+         * TID: '02.07.2026 17:07:3792',
+         * MemberID: 1
+         * }
+         */
+        return (new BuildAnswerService('BL|ACCOUNT.INVENTORY'))->success([], ["BNEAResponse" => [], "TID" => $this->request['TID']]);
     }
     protected function handleAccountXboxInventory(): \Illuminate\Http\JsonResponse
     {
