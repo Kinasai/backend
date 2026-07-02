@@ -88,7 +88,7 @@ class JorbiHandlerService
          * ErrMsg
          * BNEAResponse
          */
-        return (new BuildAnswerService('BL|PRODUCT.VIP.LEVEL'))->success(array());
+        return (new BuildAnswerService('BL|PRODUCT.VIP.LEVEL'))->success([], ['BNEAResponse' => []]);
     }
     protected function handleSendCU(): \Illuminate\Http\JsonResponse
     {
