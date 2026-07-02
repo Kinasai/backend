@@ -36,6 +36,7 @@ class JorbiHandlerService
             'account-inventory-injected' => $this->handleAccountInventoryInjected(),
             'account-xbox-inventory' => $this->handleAccountXboxInventory(),
             'who' => $this->handleWho(),
+            'buy' => $this->handleBuy(),
             'vip' => $this->handleVip(),
             default => $this->handleDefault()
         };
@@ -221,6 +222,31 @@ class JorbiHandlerService
          * { Code: 'BL|VIP', TID: '02.07.2026 17:07:3388', MemberID: 1 }
          */
         return (new BuildAnswerService('BL|WHO'))->success([], ["BNEAResponse" => [], "TID" => $this->request['TID']]);
+    }
+    protected function handleBuy(): \Illuminate\Http\JsonResponse
+    {
+        /**
+         * Code: 'BL|BUY',
+         * TID: '02.07.2026 19:32:16446',
+         * MemberID: 1,
+         * Market: '',
+         * ItemList: { ListCount: 1, Item1: { GoodsID: '1292', ItemCount: 1 } },
+         * Region: '',
+         * CharacterID: 0,
+         * SalesLocation: '',
+         * CouponNo: '',
+         * CouponUseFlag: 'N'
+         */
+        $answer = [
+            'ResponseCode' => 400,
+            'Data' => [
+                'code' => 160012,
+                'message' => "Payletter Insufficient Cash Balance",
+                'status' => "error"
+            ],
+            'status' => "error"
+        ];
+        return (new BuildAnswerService('BL|BUY'))->success($answer, ["Balance" => 145236, "TID" => $this->request['TID']]);
     }
     protected function handleItems(): \Illuminate\Http\JsonResponse
     {
