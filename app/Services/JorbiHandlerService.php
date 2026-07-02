@@ -14,7 +14,7 @@ class JorbiHandlerService
 
     public function route($route): \Illuminate\Http\JsonResponse
     {
-        $response = match($route) {
+        return match($route) {
             'game-start' => $this->handleLogin(),
             'game-start-steam' => $this->handleLoginSteam(),
             'product-vip-level' => $this->handleProductVipLevel(),
@@ -22,11 +22,6 @@ class JorbiHandlerService
             'send-op' => $this->handleSendOP(),
             default => $this->handleDefault()
         };
-        if (is_array($response) && $this->request->has('TID')) {
-            $response['TID'] = $this->request->input('TID');
-        }
-
-        return $response;
     }
     protected function handleLogin(): \Illuminate\Http\JsonResponse
     {

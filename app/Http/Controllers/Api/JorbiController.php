@@ -19,6 +19,10 @@ class JorbiController extends Controller
 
     public function handler(Request $request, $route): \Illuminate\Http\JsonResponse
     {
-        return $this->jorbi_handler->route($route);
+        $response = $this->jorbi_handler->route($route);
+        if (is_array($response) && $request->has('TID')) {
+            $response['TID'] = $request->input('TID');
+        }
+        return $response;
     }
 }
