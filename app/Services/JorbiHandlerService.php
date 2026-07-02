@@ -260,7 +260,7 @@ class JorbiHandlerService
                             'policy_start_date' => '20210708000000',
                             'count_down_flag' => 'N',
                             'limit_period_type_code' => 4,
-                            'game_item_id' => '9055',
+                            'game_item_id' => '9057',
                             'quantity' => 1,
                             'sales_end' => '2999-12-31T23:59:59+00:00',
                             'item_options_error_msg' => '',
