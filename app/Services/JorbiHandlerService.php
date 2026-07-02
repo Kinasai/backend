@@ -250,13 +250,13 @@ class JorbiHandlerService
          * CouponUseFlag: 'N'
          */
         $answer = [
-            'ResponseCode' => 400,
+            'ResponseCode' => 0,
             'Data' => [
-                'code' => 160012,
-                'message' => "Payletter Insufficient Cash Balance",
-                'status' => "error"
+                'code' => 0, // 160012
+                'message' => "Payletter Insufficient Cash Balance", //"Payletter Insufficient Cash Balance"
+                'status' => "success" //error
             ],
-            'status' => "error"
+            'status' => "success" //error
         ];
         return (new BuildAnswerService('BL|BUY'))->success($answer, ["Balance" => 145236, "TID" => $this->request['TID']]);
     }
